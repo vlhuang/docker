@@ -1,0 +1,44 @@
+version: '2'
+services:
+
+#Install OpenJDK-8
+
+RUN sudo apt-get update && \
+
+    sudo apt-get install -y openjdk-8-jdk && \
+
+    sudo apt-get install -y ant && \
+
+     sudo apt-get clean;
+
+# Setup JAVA_HOME -- useful for docker commandline
+
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
+
+RUN export JAVA_HOME
+
+
+
+#ENV VA_HOME /usr/lib/jvm/java-7-openjdk-amd64
+
+#RUN sed 's/main$/main universe/' -i /etc/apt/sources.list
+
+#ENV DEBIAN_FRONTEND noninteractive
+
+#RUN apt-get update
+
+#RUN apt-get install -y openjdk-7-jre && apt-get clean &&\
+
+#             mkdir temp_dir  &&   cd temp_dir && \
+
+#             ${JAVA_HOME}/bin/jar -xvf somejar.jar  &&\
+
+#             cd ..
+
+#ENTRYPOINT ["somescript.sh"]
+
+RUN mkdir /app
+WORKDIR /app
+
+COPY HelloJava.java /app
+RUN 
