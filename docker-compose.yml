@@ -1,14 +1,22 @@
-version: '2'
+version: '3'
 services:
 
-  ubuntu:
-    image: ubuntu
-    ports: 
-           3306:80
+  git:
+    image: git
+    container_name: git_docker_compose
+    build: .
+    command: git -C /build clone https://github.com/vlhuang/docker.git
+    volumes:
+      - ./build:/build
+    ports:
+      - 8080:80
+
   app:
+    image: ubuntu
     build: 
       dockerfile: Dockerfile
-
+    ports:
+      - 8080:80
 #ENV VA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 
 #RUN sed 's/main$/main universe/' -i /etc/apt/sources.list

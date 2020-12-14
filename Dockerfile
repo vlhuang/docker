@@ -1,12 +1,14 @@
-FROM node
+#FROM node
+FROM ubuntu
 
-CMD ["echo", "hello world!"]
+#FROM alpine/git:latest
+#CMD ["git", "latest"]
 
 #Install OpenJDK-8
 
-RUN apt-get update &&\
-
-    apt-get install -y openjdk-8-jdk
+RUN apt-get update
+RUN apt-get install -y openjdk-8-jdk
+RUN apt-get -y install git
 
 #    apt-get install -y ant &&
 
@@ -22,10 +24,17 @@ RUN mkdir /app
 
 WORKDIR /app
 
+COPY package.json .
+
+RUN npm install
+
+CMD ["npm", "start"]
+
 COPY HelloJava.java /app
 
 # Compile our HelloWorld
 
-#RUN javac HelloJava.java
+RUN javac HelloJava.java
+#CMD ["echo", "hello world!"]
 
-ENTRYPOINT java HelloJava
+#ENTRYPOINT java HelloJava
